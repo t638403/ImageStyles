@@ -3,8 +3,8 @@ ImageStyles
 The idea of this module is to apply self defined styles on a directory of source images and store them in a target
 directory.
 
-Design principles
-=================
+Design goals
+============
 
 * You can program new style types by implementing style type callbacks, for example 'colorize'
 * You should be able to use any image library in your style type callbacks
