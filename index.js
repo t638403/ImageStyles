@@ -5,8 +5,8 @@ var styles = require('./datastructures/extended/styles');
 var instances = require('./datastructures/extended/instances');
 var instance = require('./datastructures/core/tuple');
 
-var images_dir = __dirname + '/defaults/source';
-var styles_dir = __dirname + '/defaults/target';
+var images_dir = __dirname + '/images/source';
+var styles_dir = __dirname + '/images/target';
 
 when.all([images(images_dir).read(), styles(styles_dir).read()]).then(function(images_and_styles) {
     images_and_styles[0].cartesianProduct(images_and_styles[1]).each(function(instance) {
