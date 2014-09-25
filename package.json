@@ -3,6 +3,8 @@
     "version": "0.0.1",
     "dependencies": {
         "underscore":"1.7.0",
-        "when":"3.4.5"
+        "when":"3.4.5",
+        "combined-stream":"0.0.5",
+        "JSONStream":"0.9.0"
     }
 }

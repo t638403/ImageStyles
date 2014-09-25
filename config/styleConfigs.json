@@ -1,0 +1,20 @@
+[
+    {
+        "name":"thumb",
+        "description":"Creates a 300x300 thumb",
+        "type":"cover",
+        "params":{
+            "width":300,
+            "height":300
+        }
+    },
+    {
+        "name":"medium",
+        "description":"Creates a 300x300 medium",
+        "type":"cover",
+        "params":{
+            "width":600,
+            "height":300
+        }
+    }
+]

@@ -1,11 +1,7 @@
-var Item = require('./item');
+var _ = require('underscore');
 var Tuple = require('./tuple');
 
-var Set = function(ExtendedItem, CartesianTuple, CartesianSet) {
-
-    var i = ExtendedItem || Item;
-    var t = CartesianTuple || Tuple;
-    var s = CartesianSet || Set;
+var Set = function() {
 
     var a = [];
 
@@ -20,8 +16,9 @@ var Set = function(ExtendedItem, CartesianTuple, CartesianSet) {
             if(!api.contains(item)) {a.push(item);}
             return item;
         },
-        addRaw:function(value) {api.add(i(value));},
-        cartesianProduct:function(s2) {
+        cartesianProduct:function(s2, CartesianTuple, CartesianSet) {
+            var t = CartesianTuple || Tuple;
+            var s = CartesianSet || Set;
             var cp = s();
             api.each(function(i1){
                 s2.each(function(i2){
@@ -30,10 +27,15 @@ var Set = function(ExtendedItem, CartesianTuple, CartesianSet) {
             });
             return cp;
         },
-        each:function(iterator) {
-            for(var index = 0; index < a.length; index++) {
-                iterator(a[index], index);
-            }
+        each:function(iterator) {_.each(a, iterator);},
+        getByProperty:function(prop, value) {
+            var items = [];
+            api.each(function(item){
+                if(item.value()[prop] == value) {
+                    items.push(item);
+                }
+            });
+            return items;
         }
     };
     return api;
