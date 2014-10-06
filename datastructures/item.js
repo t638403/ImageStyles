@@ -1,6 +1,7 @@
 var _ = require('underscore');
 var Item = function(value) {
     var api = {
+        type:function(){return 'Item';},
         value:function(v) {
             if(!_.isUndefined()) {value = v; return api;}
             return value;

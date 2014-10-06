@@ -1,5 +1,6 @@
 var Tuple = function(i1, i2) {
     var api = {
+        type:function(){return 'Tuple';},
         first:function(){return i1;},
         second:function(){return i2;},
         eq:function(tuple) {

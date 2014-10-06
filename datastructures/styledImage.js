@@ -1,18 +1,19 @@
 var _ = require('underscore');
 var Tuple = require(global.module_root + '/datastructures/tuple');
 var StyledImage = function (i1, i2) {
-    var api = _.extend({
-        type:function(){return 'StyledImage';},
-        image:function(){
-            console.log()
-            return (api.first().type() == 'Image')?api.first():api.second();
-        },
-        style:function(){
-            return (api.first().type() == 'Style')?api.first():api.second();
-        }
-    }, Tuple(i1, i2));
+    var tuple = Tuple(i1, i2);
+    tuple.type = function(){return 'StyledImage';};
+    tuple.image = function(){
+        return (tuple.first().type() == 'Image')?tuple.first():tuple.second();
+    }
+    tuple.style = function(){
+        return (tuple.first().type() == 'Style')?tuple.first():tuple.second();
+    }
+    tuple.eq = function(styledImage) {
+        return ( (tuple.image().eq(styledImage.image()) && tuple.style().eq(styledImage.style())) || false );
+    }
 
-    return api;
+    return tuple;
 };
 
 module.exports = StyledImage;

@@ -8,28 +8,32 @@ module.exports = function(imagePropertiesReadable) {
     var isDoneFilenameStream = false;
     var isDoneImagePropertiesStream = false;
     var isDoneBoth = function() {return (isDoneFilenameStream && isDoneImagePropertiesStream);}
+    var pushRemainingFiles = function() {
+        for (var path in filenamesBuffer) {
+            if (filenamesBuffer.hasOwnProperty(path)) {
+                combined.push(Image(filenamesBuffer[path]));
+            }
+        }
+    }
 
     var combined = new Transform({objectMode: true });
     combined._read = function(){};
 
     combined._write = function(filename, enc, next) {
-        var image = imagePropertiesBuffer[filename];
-        if(!image) {
-            filenamesBuffer[filename] = new Image({path:filename});
+        var imageProperties = imagePropertiesBuffer[filename];
+        if(!imageProperties) {
+            filenamesBuffer[filename] = {path:filename};
         } else {
-            combined.push(image);
+            combined.push(Image(imageProperties));
             delete imagePropertiesBuffer[filename];
         }
         next();
     }
+
     combined._flush = function() {
         isDoneFilenameStream = true;
         if(isDoneBoth()) {
-            for (var path in filenamesBuffer) {
-                if (filenamesBuffer.hasOwnProperty(path)) {
-                    combined.push(filenamesBuffer[path]);
-                }
-            }
+            pushRemainingFiles();
             combined.push(null)
         }
     }
@@ -38,10 +42,9 @@ module.exports = function(imagePropertiesReadable) {
     imagePropertiesTransform._write = function(imageProperties, enc, next) {
         var image = filenamesBuffer[imageProperties.path];
         if(!image) {
-            imagePropertiesBuffer[imageProperties.path] = new Image(imageProperties);
+            imagePropertiesBuffer[imageProperties.path] = imageProperties;
         } else {
-            image.update(imageProperties);
-            combined.push(image);
+            combined.push(Image(imageProperties));
             delete filenamesBuffer[imageProperties.path];
         }
         next();
@@ -50,11 +53,7 @@ module.exports = function(imagePropertiesReadable) {
     imagePropertiesTransform._flush = function() {
         isDoneImagePropertiesStream = true;
         if(isDoneBoth()) {
-            for (var path in filenamesBuffer) {
-                if (filenamesBuffer.hasOwnProperty(path)) {
-                    combined.push(filenamesBuffer[path]);
-                }
-            }
+            pushRemainingFiles();
             combined.push(null)
         }
     }

@@ -27,16 +27,7 @@ var Set = function() {
             });
             return cp;
         },
-        each:function(iterator) {_.each(a, iterator);},
-        getByProperty:function(prop, value) {
-            var items = [];
-            api.each(function(item){
-                if(item.value()[prop] == value) {
-                    items.push(item);
-                }
-            });
-            return items;
-        }
+        each:function(iterator) {_.each(a, iterator);}
     };
     return api;
 };
