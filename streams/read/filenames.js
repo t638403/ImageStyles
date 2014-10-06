@@ -2,9 +2,9 @@ var fs = require('fs');
 var Readable = require('stream').Readable;
 var util = require('util');
 
-util.inherits(AsyncRecursiveDirectoryReadable, Readable);
+util.inherits(Filenames, Readable);
 
-function AsyncRecursiveDirectoryReadable(dir, opt) {
+function Filenames(dir, opt) {
     Readable.call(this, opt);
     var that = this;
     this.pending = 0;
@@ -46,7 +46,7 @@ function AsyncRecursiveDirectoryReadable(dir, opt) {
     }
 }
 
-AsyncRecursiveDirectoryReadable.prototype._read = function() {
+Filenames.prototype._read = function() {
     var that = this;
     if(that.hasDirsToExplore()) {
         var dir = that.getDir();
@@ -54,4 +54,4 @@ AsyncRecursiveDirectoryReadable.prototype._read = function() {
     }
 };
 
-module.exports = AsyncRecursiveDirectoryReadable;
+module.exports = function(dir) {return new Filenames(dir);}

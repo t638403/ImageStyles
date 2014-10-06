@@ -1,5 +1,5 @@
 var _ = require('underscore');
-var Item = require('../core/item');
+var Item = require(global.module_root + '/datastructures/item');
 var Image = function(obj) {
     if(!_.isObject(obj)) {throw 'Item must be an object';}
     var api = _.extend({
