@@ -1,5 +1,4 @@
-var _ = require('underscore');
-var Item = require(global.module_root + '/datastructures/item');
+var Item = require(global.moduleRoot + '/datastructures/item');
 
 var Image = function(imageProperties) {
     var item = Item(imageProperties);

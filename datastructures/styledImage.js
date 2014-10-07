@@ -1,5 +1,4 @@
-var _ = require('underscore');
-var Tuple = require(global.module_root + '/datastructures/tuple');
+var Tuple = require(global.moduleRoot + '/datastructures/tuple');
 var StyledImage = function (i1, i2) {
     var tuple = Tuple(i1, i2);
     tuple.type = function(){return 'StyledImage';};

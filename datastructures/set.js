@@ -1,4 +1,3 @@
-var _ = require('underscore');
 var Tuple = require('./tuple');
 
 var Set = function() {
@@ -27,7 +26,11 @@ var Set = function() {
             });
             return cp;
         },
-        each:function(iterator) {_.each(a, iterator);}
+        each:function(iterator) {
+            for(var i = 0; i < a.length; i++) {
+                iterator(a[i]);
+            }
+        }
     };
     return api;
 };

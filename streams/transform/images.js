@@ -1,6 +1,7 @@
+var path = require('path');
 var Writable = require('stream').Readable;
 var Transform = require('stream').Transform;
-var Image = require(global.module_root + '/datastructures/Image')
+var Image = require(global.moduleRoot + '/datastructures/Image')
 
 module.exports = function(imagePropertiesReadable) {
     var filenamesBuffer = {};
@@ -11,6 +12,7 @@ module.exports = function(imagePropertiesReadable) {
     var pushRemainingFiles = function() {
         for (var path in filenamesBuffer) {
             if (filenamesBuffer.hasOwnProperty(path)) {
+                // TODO Somehow, these filenamesBuffer[path] are Buffers in stead of strings
                 combined.push(Image(filenamesBuffer[path]));
             }
         }

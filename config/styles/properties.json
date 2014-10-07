@@ -3,18 +3,14 @@
         "name":"thumb",
         "description":"Creates a 300x300 thumb",
         "function":"cover",
-        "params":{
-            "width":300,
-            "height":300
-        }
+        "width":300,
+        "height":300
     },
     {
-        "name":"medium",
-        "description":"Creates a 300x300 medium",
+        "name":"icon",
+        "description":"Creates a 64x64 icon",
         "function":"cover",
-        "params":{
-            "width":600,
-            "height":300
-        }
+        "width":64,
+        "height":64
     }
 ]
