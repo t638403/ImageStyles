@@ -1,6 +1,6 @@
 var Tuple = require(global.moduleRoot + '/datastructures/tuple');
-var StyledImage = function (i1, i2) {
-    var tuple = Tuple(i1, i2);
+var StyledImage = function (image, style) {
+    var tuple = Tuple(image, style);
     tuple.type = function(){return 'StyledImage';};
     tuple.image = function(){
         return (tuple.first().type() == 'Image')?tuple.first():tuple.second();

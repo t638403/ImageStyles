@@ -13,30 +13,30 @@ module.exports = function(imagePropertiesReadable) {
         for (var path in filenamesBuffer) {
             if (filenamesBuffer.hasOwnProperty(path)) {
                 // TODO Somehow, these filenamesBuffer[path] are Buffers in stead of strings
-                combined.push(Image(filenamesBuffer[path]));
+                images.push(Image(filenamesBuffer[path]));
             }
         }
     }
 
-    var combined = new Transform({objectMode: true });
-    combined._read = function(){};
+    var images = new Transform({objectMode: true });
+    images._read = function(){};
 
-    combined._write = function(filename, enc, next) {
+    images._write = function(filename, enc, next) {
         var imageProperties = imagePropertiesBuffer[filename];
         if(!imageProperties) {
             filenamesBuffer[filename] = {path:filename};
         } else {
-            combined.push(Image(imageProperties));
+            images.push(Image(imageProperties));
             delete imagePropertiesBuffer[filename];
         }
         next();
     }
 
-    combined._flush = function() {
+    images._flush = function() {
         isDoneFilenameStream = true;
         if(isDoneBoth()) {
             pushRemainingFiles();
-            combined.push(null)
+            images.push(null)
         }
     }
 
@@ -46,7 +46,7 @@ module.exports = function(imagePropertiesReadable) {
         if(!image) {
             imagePropertiesBuffer[imageProperties.path] = imageProperties;
         } else {
-            combined.push(Image(imageProperties));
+            images.push(Image(imageProperties));
             delete filenamesBuffer[imageProperties.path];
         }
         next();
@@ -56,11 +56,11 @@ module.exports = function(imagePropertiesReadable) {
         isDoneImagePropertiesStream = true;
         if(isDoneBoth()) {
             pushRemainingFiles();
-            combined.push(null)
+            images.push(null)
         }
     }
 
     imagePropertiesReadable.pipe(imagePropertiesTransform);
 
-    return combined;
+    return images;
 }

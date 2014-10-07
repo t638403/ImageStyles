@@ -1,10 +1,45 @@
 {
     "name": "ImageStyles",
+    "description": "Lets you set graphic templates so that images on your site have a consistent size, scale, and rotation.",
     "version": "0.0.1",
+    "author": {
+        "name": "Erik van den Hooven",
+        "email": "e.j.vd.hooven@gmail.com"
+    },
+    "keywords": [
+        "graphics",
+        "image",
+        "style"
+    ],
+    "engines": {
+        "node": ">= 0.10.32"
+    },
+    "bugs": {
+        "url": "https://github.com/t638403/ImageStyles/issues"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "http://www.opensource.org/licenses/mit-license.php"
+        }
+    ],
+    "main": "./index",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/t638403/ImageStyles.git"
+    },
+    "license": "MIT",
     "dependencies": {
         "JSONStream":"0.9.0",
         "mkdirp":"0.5.0",
         "gm":"1.16.0",
         "underscore":"1.7.0"
-    }
+    },
+    "homepage": "https://github.com/t638403/ImageStyles",
+    "maintainers": [
+        {
+            "name": "t638403",
+            "email": "e.j.vd.hooven@gmail.com"
+        }
+    ]
 }

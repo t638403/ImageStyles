@@ -1,28 +1,44 @@
 global.moduleRoot = __dirname;
+var defaultConfigurationDirectory = __dirname + '/config';
 
-var config = __dirname + '/config'
-global.imagesSourceDirectory = __dirname + '/images/source';
-global.imagesTargetDirectory = __dirname + '/images/target';
+module.exports = function(settings) {
 
-var imagePropertiesFile = config + '/images/properties.json';
-var stylePropertiesFile = config + '/styles/properties.json';
-var styleFunctions = require(config + '/styles/functions');
+    if(!settings || !settings.sourceDir || !settings.targetDir){
+        throw 'Source and target directory are mandatory';
+    }
+    // Set image directories (mandatory)
+    global.imagesSourceDirectory = settings.sourceDir;
+    global.imagesTargetDirectory = settings.targetDir;
 
-var Images = require(global.moduleRoot + '/streams/transform/images');
-var StyledImages = require(global.moduleRoot + '/streams/transform/styledImages');
-var ImageProperties = require('./streams/read/imageProperties');
-var StyleProperties = require('./streams/read/styleProperties');
-var Filenames = require(global.moduleRoot + '/streams/read/filenames');
+    // Set configuration files
+    var imagePropertiesFile = settings.imagePropertiesFile || defaultConfigurationDirectory + '/images/properties.json';
+    var stylePropertiesFile = settings.stylePropertiesFile || defaultConfigurationDirectory + '/styles/properties.json';
+    var styleFunctionsFile = settings.styleFunctionsFile || defaultConfigurationDirectory + '/styles/functions';
+    var styleFunctions = require(styleFunctionsFile);
 
-var StyledImagesWriter = require(global.moduleRoot + '/streams/write/styledImagesWriter');
+    // Set Readable stream files
+    var imageProperties = settings.ImageProperties || require('./streams/read/imageProperties')(imagePropertiesFile);
+    var styleProperties = settings.StyleProperties || require('./streams/read/styleProperties')(stylePropertiesFile);
+    var defaultFilenamesReadable = settings.filenames || require(global.moduleRoot + '/streams/read/filenames')(global.imagesSourceDirectory);
 
-var filenames = Filenames(global.imagesSourceDirectory);
-var imageProperties = ImageProperties(imagePropertiesFile);
-var styleProperties = StyleProperties(stylePropertiesFile);
+    // Load Transform stream files
+    var images = require(global.moduleRoot + '/streams/transform/images')(imageProperties);
+    var styledImages = require(global.moduleRoot + '/streams/transform/styledImages')(styleProperties, styleFunctions);
 
-var images = Images(imageProperties);
-var styledImages = StyledImages(styleProperties, styleFunctions);
+    // Load Writable stream file
+    var styledImagesWriter = require(global.moduleRoot + '/streams/write/styledImagesWriter')();
 
-var styledImagesWriter = StyledImagesWriter();
+    return {
+        run:function(filenamesReadable) {
+            if(!filenamesReadable) {
+                filenamesReadable = defaultFilenamesReadable;
+            }
+            filenamesReadable.pipe(images).pipe(styledImages).pipe(styledImagesWriter);
+        },
+        clean:function() {
+            // Check target dir for inconsistencies and remove garbage.
+            defaultFilenamesReadable.pipe(styledImages).pipe(process.stdout);
+        }
+    }
 
-filenames.pipe(images).pipe(styledImages).pipe(styledImagesWriter);
+}
