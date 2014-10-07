@@ -1,7 +1,7 @@
 var Writable = require('stream').Readable;
 var Transform = require('stream').Transform;
 var Set = require(global.moduleRoot + '/datastructures/set');
-var Stsyle = require(global.moduleRoot + '/datastructures/style');
+var Style = require(global.moduleRoot + '/datastructures/style');
 var StyledImage = require(global.moduleRoot + '/datastructures/styledImage');
 
 module.exports = function(stylePropertiesReadable, styleFunctions) {

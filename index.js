@@ -1,5 +1,4 @@
 global.moduleRoot = __dirname;
-var defaultConfigurationDirectory = __dirname + '/config';
 
 module.exports = function(settings) {
 
@@ -11,9 +10,9 @@ module.exports = function(settings) {
     global.imagesTargetDirectory = settings.targetDir;
 
     // Set configuration files
-    var imagePropertiesFile = settings.imagePropertiesFile || defaultConfigurationDirectory + '/images/properties.json';
-    var stylePropertiesFile = settings.stylePropertiesFile || defaultConfigurationDirectory + '/styles/properties.json';
-    var styleFunctionsFile = settings.styleFunctionsFile || defaultConfigurationDirectory + '/styles/functions';
+    var imagePropertiesFile = settings.imagePropertiesFile;
+    var stylePropertiesFile = settings.stylePropertiesFile;
+    var styleFunctionsFile = settings.styleFunctionsFile;
     var styleFunctions = require(styleFunctionsFile);
 
     // Set Readable stream files
