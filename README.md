@@ -155,7 +155,7 @@ process.argv.forEach(function(arg, i){
     }
 });
 ```
-You can now the module from the command line
+You can now run the module from the command line
 ```bash
 $ ./imstlz style
 ```
