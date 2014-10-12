@@ -167,7 +167,8 @@ and a writable stream. Furthermore it consists of four basic data structures, Im
 
 Since different streams are merged into a single stream, the transformers are more like sinks. They have to wait till
 both streams are ended before the transformer can stream on. I could not exploit the full power of streams, but the
-concept is still very appealing and any other approach would still be as memory consuming as this one.  
+concept is still very appealing and any other approach would be as memory consuming as this one. Which is not that memory 
+consuming anyway.
 
 ##1) images
 First filenames and image properties are merged into a stream of Image objects. So there is:
@@ -186,9 +187,9 @@ This is the most important part of the program. We have:
 2. a file `styleFunctions` 
 3. a transform stream of images;
 4. a transform stream;
-..1. first a Style object will be created for each style in `styleProperties.json` and its style function will be embedded into this object
-..2. it collect all Style objects in a Set and it will collect all Image objects in a Set
-..3. then it will calculate the Cartesian product of both sets which will produce the set of StyledImage objects
+  1. first a Style object will be created for each style in `styleProperties.json` and its style function will be embedded into this object
+  2. it collect all Style objects in a Set and it will collect all Image objects in a Set
+  3. then it will calculate the Cartesian product of both sets which will produce the set of StyledImage objects
 
 ##3 styledImageWriter
 Finally we can construct the source and the target path of each image and write the styled images to disk 
