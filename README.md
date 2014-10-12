@@ -26,10 +26,15 @@ target directory.
   - [ImageStyles.reset()](#imagestylesreset)
 
 #Basic usage
-1. Create a JS file with style functions;
-2. Create a JSON file where you can store properties specific to one of your styles;
-3. Create a JSON file where you can save properties specific to one of your images;
-4. Instantiate ImageStyles and run it.
+1. Install package
+2. Create a JS file with style functions;
+3. Create a JSON file where you can store properties specific to one of your styles;
+4. Create a JSON file where you can save properties specific to one of your images;
+5. Instantiate ImageStyles and run it.
+
+```bash
+$ npm install image-styles
+```
 
 ##1 Create style functions file
 Create a node js module with your style functions. For example a colorize function. This function is basically a wrapper 

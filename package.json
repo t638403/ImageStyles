@@ -1,7 +1,7 @@
 {
     "name": "image-styles",
     "description": "Lets you set graphic templates so that images on your site have a consistent size, scale, and rotation.",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "author": {
         "name": "Erik",
         "email": "e.j.vd.hooven@gmail.com"
