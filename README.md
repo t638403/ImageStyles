@@ -6,10 +6,11 @@ Apply self defined style templates on a directory of source images and save the 
 target directory.
 
 - [Basic usage](#basic-usage)
-  - [1 Create style functions file](#1-create-style-functions-file)
-  - [2 Create style properties file](#2-create-style-properties-file)
-  - [3 Create image properties file](#3-create-image-properties-file)
-  - [4 Instantiate and run](#4-instantiate-and-run)
+  - [1 Install package](#1-install-package)
+  - [2 Create style functions file](#2-create-style-functions-file)
+  - [3 Create style properties file](#3-create-style-properties-file)
+  - [4 Create image properties file](#4-create-image-properties-file)
+  - [5 Instantiate and run](#5-instantiate-and-run)
 - [Using ImageStyles on the linux commandline](#using-imagestyles-on-the-linux-commandline)
 - [How it works](#how-it-works)
   - [1 produce images](#1-produce-images)
@@ -32,11 +33,13 @@ target directory.
 4. Create a JSON file where you can save properties specific to one of your images;
 5. Instantiate ImageStyles and run it.
 
+
+##1 Install package
 ```bash
 $ npm install image-styles
 ```
 
-##1 Create style functions file
+##2 Create style functions file
 Create a node js module with your style functions. For example a colorize function. This function is basically a wrapper 
 around your favorite image manipulation library. I use [graphics magick (gm)](https://github.com/aheckmann/gm).
 Each style function has five attributes:
@@ -68,7 +71,7 @@ module.exports = {
     }
 }
 ```
-##2 Create style properties file
+##3 Create style properties file
 Create a file to save the style properties for example styleProperties.json. Define at least one style. The properties 
 in this file will be available in the style function, for example the colorize function above. You can now create a 
 style 'redify' and 'greenify' that bot make use of the colorize function.
@@ -93,7 +96,7 @@ Example styleProperties.json
 ]
 ```
 
-##3 Create image properties file
+##4 Create image properties file
 For each image in the source directory you may configure some image specific properties that you might be using in one 
 of your styles. You don't want to cut off the most important part of an image. Saving a cooirdinate representing the center
 of attention could provide a crop function with the information to prevent this.
@@ -116,7 +119,7 @@ Example imageProperties.json:
 ]
 ```
 
-##4 Instantiate and run
+##5 Instantiate and run
 Now that you have created the necessary files you just instantiate the module and apply the styles
 ```javascript
 // Tell ImageStyles where to find all the files and where to store the styled images
