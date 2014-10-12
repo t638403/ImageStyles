@@ -1,9 +1,9 @@
 {
-    "name": "ImageStyles",
+    "name": "image-styles",
     "description": "Lets you set graphic templates so that images on your site have a consistent size, scale, and rotation.",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "author": {
-        "name": "Erik van den Hooven",
+        "name": "Erik",
         "email": "e.j.vd.hooven@gmail.com"
     },
     "keywords": [
@@ -37,7 +37,7 @@
     "homepage": "https://github.com/t638403/ImageStyles",
     "maintainers": [
         {
-            "name": "t638403",
+            "name": "Erik",
             "email": "e.j.vd.hooven@gmail.com"
         }
     ]
