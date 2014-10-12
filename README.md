@@ -15,6 +15,7 @@ target directory.
 Create a node js module with your style functions. For example a colorize function. This function is basically a wrapper 
 around your favorite image manipulation library. I use [graphics magick (gm)](https://github.com/aheckmann/gm).
 Each style function has five attributes:
+
 1. sourceImagePath - Path to the source image;
 2. targetImagePath - Path to the target image;
 3. imageProperties - image properties;
