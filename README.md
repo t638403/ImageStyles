@@ -188,11 +188,12 @@ This is the most important part of the program. We have:
 3. a transform stream of images;
 4. a transform stream;
   1. first a Style object will be created for each style in `styleProperties.json` and its style function will be embedded into this object
-  2. it collect all Style objects in a Set and it will collect all Image objects in a Set
+  2. it collects all Style objects in a Set and it collects all Image objects in a Set
   3. then it will calculate the Cartesian product of both sets which will produce the set of StyledImage objects
 
 ##3 styledImageWriter
-Finally we can construct the source and the target path of each image and write the styled images to disk 
+The StyledImages stream represents all target images and they need to be written to disk, so thats what will happen here. 
+That is, if you did something with the presented target path in your style function.
 
 #Advanced usage
 All configuration is done in json files. You might want to store this stuff in a database. For this reason you can
