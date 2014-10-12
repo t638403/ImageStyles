@@ -5,6 +5,30 @@ Please feel free to file bugs.
 Apply self defined style templates on a directory of source images and save the styled images in a 
 target directory.
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
+
+- [ImageStyles](#imagestyles)
+- [Basic usage](#basic-usage)
+  - [1 Create styles file](#1-create-styles-file)
+  - [2 Create style properties](#2-create-style-properties)
+  - [3 Create image properties file](#3-create-image-properties-file)
+  - [4 Instantiate and run](#4-instantiate-and-run)
+- [Using ImageStyles on the linux commandline](#using-imagestyles-on-the-linux-commandline)
+- [How it works](#how-it-works)
+  - [1) images](#1-images)
+  - [2) styledImages](#2-styledimages)
+  - [3 styledImageWriter](#3-styledimagewriter)
+- [Advanced usage](#advanced-usage)
+- [API](#api)
+  - [ImageStyles.style()](#imagestylesstyle)
+  - [ImageStyles.clean() (Not implemented)](#imagestylesclean-not-implemented)
+  - [ImageStyles.clear()](#imagestylesclear)
+  - [ImageStyles.reset()](#imagestylesreset)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 #Basic usage
 1. Create a JS file with style functions;
 2. Create a JSON file where you can store properties specific to one of your styles;
