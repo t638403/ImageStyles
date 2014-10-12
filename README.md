@@ -170,7 +170,7 @@ both streams are ended before the transformer can stream on. I could not exploit
 concept is still very appealing and any other approach would be as memory consuming as this one. Which is not that memory 
 consuming anyway.
 
-##1) images
+##1 produce images
 First filenames and image properties are merged into a stream of Image objects. So there is:
  
 1. a `filenames` readable which walks the images source directory and streams the filenames;
@@ -180,7 +180,7 @@ First filenames and image properties are merged into a stream of Image objects. 
 the filenames readable is leading since these are the images you want to style. So for any filename there will be an Image
 object. If a properties object is defined for this file, it will be included into the Image object.
 
-##2) styledImages
+##2 produce styled images
 This is the most important part of the program. We have:
 
 1. a `styleProperties` readable which streams the objects in the `styleProperties.json`;
@@ -191,9 +191,10 @@ This is the most important part of the program. We have:
   2. it collects all Style objects in a Set and it collects all Image objects in a Set
   3. then it will calculate the Cartesian product of both sets which will produce the set of StyledImage objects
 
-##3 styledImageWriter
-The StyledImages stream represents all target images and they need to be written to disk, so thats what will happen here. 
-That is, if you did something with the presented target path in your style function.
+##3 apply styles
+The StyledImages stream represents all target images and they need to be styled and written to disk, so thats what will 
+happen here. 
+That is, if you did something with an image manipulation library and the presented target path in your style function.
 
 #Advanced usage
 All configuration is done in json files. You might want to store this stuff in a database. For this reason you can
