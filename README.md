@@ -6,8 +6,8 @@ Apply self defined style templates on a directory of source images and save the 
 target directory.
 
 - [Basic usage](#basic-usage)
-  - [1 Create styles file](#1-create-styles-file)
-  - [2 Create style properties](#2-create-style-properties)
+  - [1 Create style functions file](#1-create-style-functions-file)
+  - [2 Create style properties file](#2-create-style-properties-file)
   - [3 Create image properties file](#3-create-image-properties-file)
   - [4 Instantiate and run](#4-instantiate-and-run)
 - [Using ImageStyles on the linux commandline](#using-imagestyles-on-the-linux-commandline)
@@ -31,7 +31,7 @@ target directory.
 3. Create a JSON file where you can save properties specific to one of your images;
 4. Instantiate ImageStyles and run it.
 
-##1 Create styles file
+##1 Create style functions file
 Create a node js module with your style functions. For example a colorize function. This function is basically a wrapper 
 around your favorite image manipulation library. I use [graphics magick (gm)](https://github.com/aheckmann/gm).
 Each style function has five attributes:
@@ -63,7 +63,7 @@ module.exports = {
     }
 }
 ```
-##2 Create style properties
+##2 Create style properties file
 Create a file to save the style properties for example styleProperties.json. Define at least one style. The properties 
 in this file will be available in the style function, for example the colorize function above. You can now create a 
 style 'redify' and 'greenify' that bot make use of the colorize function.
