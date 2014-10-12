@@ -1,6 +1,7 @@
+var rm = require('remove')
 global.moduleRoot = __dirname;
 
-module.exports = function(settings) {
+var ImageStyles = function(settings) {
 
     if(!settings || !settings.sourceDir || !settings.targetDir){
         throw 'Source and target directory are mandatory';
@@ -27,17 +28,30 @@ module.exports = function(settings) {
     // Load Writable stream file
     var styledImagesWriter = require(global.moduleRoot + '/streams/write/styledImagesWriter')();
 
-    return {
-        run:function(filenamesReadable) {
+    var api = {
+        style:function(filenamesReadable) {
             if(!filenamesReadable) {
                 filenamesReadable = defaultFilenamesReadable;
             }
             filenamesReadable.pipe(images).pipe(styledImages).pipe(styledImagesWriter);
         },
         clean:function() {
-            // Check target dir for inconsistencies and remove garbage.
-            defaultFilenamesReadable.pipe(styledImages).pipe(process.stdout);
+            // TODO implement
+            // Check target dir for inconsistencies with source dir and remove garbage and/or apply missing styles
+        },
+        clear:function(done){
+            rm(global.imagesTargetDirectory, function(err) {
+                if(err) {console.log(err)}
+                if(done) {done();}
+            });
+        },
+        reset:function() {
+            api.clear(function(){
+                api.style();
+            });
         }
     }
-
+    return api;
 }
+
+module.exports = ImageStyles;
