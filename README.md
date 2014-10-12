@@ -16,6 +16,9 @@ target directory.
   - [2) styledImages](#2-styledimages)
   - [3 styledImageWriter](#3-styledimagewriter)
 - [Advanced usage](#advanced-usage)
+  - [MyImagePropertiesReadable](#myimagepropertiesreadable)
+  - [MyStylePropertiesReadable](#mystylepropertiesreadable)
+  - [MongoDB Example](#mongodb-example)
 - [API](#api)
   - [ImageStyles.style()](#imagestylesstyle)
   - [ImageStyles.clean() (Not implemented)](#imagestylesclean-not-implemented)
@@ -193,9 +196,32 @@ Finally we can construct the source and the target path of each image and write 
 #Advanced usage
 All configuration is done in json files. You might want to store this stuff in a database. For this reason you can
 configure your own stream readers in the settings object.
+
+##MyImagePropertiesReadable
+The image properties readable streams objects. Each object must contain at least a path property with an absolute path
+to the file it contains properties of.
 ```javascript
-var myImageProperties = new MyImagePropertiesReadable();
-var myStyleProperties = new MyStylePropertiesReadable();
+var obj = {
+    path:'/path/to/file.jpg'
+}
+```
+##MyStylePropertiesReadable
+The style properties readable streams objects. Each object must contain at least a name property and a function 
+property. like the folowing object.
+```javascript
+var obj = {
+    name:'myStyle'
+    function:'myStyleFunction'
+}
+```
+
+##MongoDB Example
+Using [mongojs](https://github.com/mafintosh/mongojs) and [JSONStream](https://github.com/dominictarr/JSONStream) you 
+can easlily create stream readers for mongo. Something like this:
+
+```javascript
+var myImageProperties = db.myImageProperties.find({}).pipe(JSONStream.stringify());
+var myStyleProperties = db.myStyleProperties.find({}).pipe(JSONStream.stringify());
 
 // Tell ImageStyles where to find all the files and where to store the styled images
 var settings = {
