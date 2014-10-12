@@ -22,6 +22,7 @@ module.exports = function(imagePropertiesReadable) {
     images._read = function(){};
 
     images._write = function(filename, enc, next) {
+        filename = filename.toString();
         var imageProperties = imagePropertiesBuffer[filename];
         if(!imageProperties) {
             filenamesBuffer[filename] = {path:filename};
