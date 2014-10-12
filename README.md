@@ -50,18 +50,18 @@ Example styleProperties.json
 ```json
 [
     {
-        name:'redify',
-        function:'colorize',
-        red:255,
-        green:0,
-        blue:0
+        "name":"redify",
+        "function":"colorize",
+        "red":255,
+        "green":0,
+        "blue":0
     },
     {
-        name:'greenify',
-        function:'colorize',
-        red:0,
-        green:255,
-        blue:0
+        "name":"greenify",
+        "function":"colorize",
+        "red":0,
+        "green":255,
+        "blue":0
     }
 ]
 ```
@@ -108,26 +108,11 @@ var imstlz = ImageStyles(settings);
 imstlz.style();
 ```
 
-#API
-##ImageStyles.style()
-Reads all the files in the images source directory recursively, create directories for each style in the images target 
-directory and then duplicates the structure of the images source directory under each style directory. Finaly apply style 
-functions to each image. If a file allready exists in the images target directory it will be removed.
-
-## ImageStyles.clean() (Not implemented)
-Check target dir for inconsistencies with source dir and remove garbage and/or apply missing styled images
-
-##ImageStyles.clear()
-Remove images target directory recursively
-
-##ImageStyles.reset()
-run ImageStyles.clear() and then ImageStyles.style()
-
 #Using ImageStyles on the commandline
 Create a file imstlz and chmod
 ```bash
 $ touch imstlz
-$ chmod 744 
+$ chmod 744 imstlz
 ```
 
 Edit the file in your favorite editor
@@ -152,3 +137,18 @@ You can now the module from the command line
 ```bash
 $ ./imstlz style
 ```
+
+#API
+##ImageStyles.style()
+Reads all the files in the images source directory recursively, create directories for each style in the images target 
+directory and then duplicates the structure of the images source directory under each style directory. Finaly apply style 
+functions to each image. If a file allready exists in the images target directory it will be removed.
+
+## ImageStyles.clean() (Not implemented)
+Check target dir for inconsistencies with source dir and remove garbage and/or apply missing styled images
+
+##ImageStyles.clear()
+Remove images target directory recursively
+
+##ImageStyles.reset()
+run ImageStyles.clear() and then ImageStyles.style()
