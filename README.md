@@ -5,7 +5,6 @@ Please feel free to file bugs.
 Apply self defined style templates on a directory of source images and save the styled images in a 
 target directory.
 
-- [ImageStyles](#imagestyles)
 - [Basic usage](#basic-usage)
   - [1 Create styles file](#1-create-styles-file)
   - [2 Create style properties](#2-create-style-properties)
