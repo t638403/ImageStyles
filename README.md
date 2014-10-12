@@ -5,10 +5,6 @@ Please feel free to file bugs.
 Apply self defined style templates on a directory of source images and save the styled images in a 
 target directory.
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
-
 - [ImageStyles](#imagestyles)
 - [Basic usage](#basic-usage)
   - [1 Create styles file](#1-create-styles-file)
@@ -26,8 +22,6 @@ target directory.
   - [ImageStyles.clean() (Not implemented)](#imagestylesclean-not-implemented)
   - [ImageStyles.clear()](#imagestylesclear)
   - [ImageStyles.reset()](#imagestylesreset)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 #Basic usage
 1. Create a JS file with style functions;
