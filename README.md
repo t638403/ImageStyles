@@ -5,7 +5,7 @@ Please feel free to file bugs.
 Apply self defined style templates on a directory of source images and save the styled images in a 
 target directory.
 
-#Basic Usage
+#Basic usage
 1. Create a JS file with style functions;
 2. Create a JSON file where you can store properties specific to one of your styles;
 3. Create a JSON file where you can save properties specific to one of your images;
@@ -31,7 +31,8 @@ module.exports = {
         // Read the image into graphics magick
         gm(sourceImagePath)
         
-            // Apply graphic magick's colorize function with the properties of a style, defined in the style properties file
+            // Apply graphic magick's colorize function with the properties of a style, 
+            // defined in the style properties file
             .colorize(styleProperties.red, styleProperties.green, styleProperties.blue)
             
             // Write image to disk
@@ -109,8 +110,8 @@ var imstlz = ImageStyles(settings);
 imstlz.style();
 ```
 
-#Using ImageStyles on the commandline
-Create a file imstlz and chmod
+#Using ImageStyles on the linux commandline
+Create a file imstlz and make it executable
 ```bash
 $ touch imstlz
 $ chmod 744 imstlz
@@ -137,6 +138,63 @@ process.argv.forEach(function(arg, i){
 You can now the module from the command line
 ```bash
 $ ./imstlz style
+```
+#How it works
+Check [the informal system diagram](https://raw.githubusercontent.com/t638403/ImageStyles/master/informal_system_diagram.jpeg) for a visual explanation.
+
+This module is build around node >= 0.10 streams. It consists of three stream readables, two stream transformers
+and a writable stream. Furthermore it consists of four basic data structures, Image, Style, StyledImage and Set.
+
+Since different streams are merged into a single stream, the transformers are more like sinks. They have to wait till
+both streams are ended before the transformer can stream on. I could not exploit the full power of streams, but the
+concept is still very appealing and any other approach would still be as memory consuming as this one.  
+
+##1) images
+First filenames and image properties are merged into a stream of Image objects. So there is:
+ 
+1. a `filenames` readable which walks the images source directory and streams the filenames;
+2. a `imageProperties` readable which streams the objects in the `imageProperties.json`;
+3. a transform stream to merge a filename and a image properties object into an Image object.
+
+the filenames readable is leading since these are the images you want to style. So for any filename there will be an Image
+object. If a properties object is defined for this file, it will be included into the Image object.
+
+##2) styledImages
+This is the most important part of the program. We have:
+
+1. a `styleProperties` readable which streams the objects in the `styleProperties.json`;
+2. a file `styleFunctions` 
+3. a transform stream of images;
+4. a transform stream;
+..1. first a Style object will be created for each style in `styleProperties.json` and its style function will be embedded into this object
+..2. it collect all Style objects in a Set and it will collect all Image objects in a Set
+..3. then it will calculate the Cartesian product of both sets which will produce the set of StyledImage objects
+
+##3 styledImageWriter
+Finally we can construct the source and the target path of each image and write the styled images to disk 
+
+#Advanced usage
+All configuration is done in json files. You might want to store this stuff in a database. For this reason you can
+configure your own stream readers in the settings object.
+```javascript
+var myImageProperties = new MyImagePropertiesReadable();
+var myStyleProperties = new MyStylePropertiesReadable();
+
+// Tell ImageStyles where to find all the files and where to store the styled images
+var settings = {
+    sourceDir:'/path/to/sourceFiles',
+    targetDir:'/path/to/targetFiles',
+    imageProperties:myImageProperties,
+    styleProperties:myStyleProperties,
+    styleFunctionsFile:'/path/to/styleFunctions.js'
+}
+
+// Instantiate ImageStyles
+var imstlz = ImageStyles(settings);
+
+// Apply styles
+imstlz.style();
+
 ```
 
 #API

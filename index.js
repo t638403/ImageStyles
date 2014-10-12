@@ -17,8 +17,8 @@ var ImageStyles = function(settings) {
     var styleFunctions = require(styleFunctionsFile);
 
     // Set Readable stream files
-    var imageProperties = settings.ImageProperties || require('./streams/read/imageProperties')(imagePropertiesFile);
-    var styleProperties = settings.StyleProperties || require('./streams/read/styleProperties')(stylePropertiesFile);
+    var imageProperties = settings.imageProperties || require('./streams/read/imageProperties')(imagePropertiesFile);
+    var styleProperties = settings.styleProperties || require('./streams/read/styleProperties')(stylePropertiesFile);
     var filenamesReadable = settings.filenames || require(global.moduleRoot + '/streams/read/filenames')(global.imagesSourceDirectory);
 
     // Load Transform stream files
