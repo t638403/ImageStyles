@@ -19,7 +19,7 @@ var ImageStyles = function(settings) {
     // Set Readable stream files
     var imageProperties = settings.ImageProperties || require('./streams/read/imageProperties')(imagePropertiesFile);
     var styleProperties = settings.StyleProperties || require('./streams/read/styleProperties')(stylePropertiesFile);
-    var defaultFilenamesReadable = settings.filenames || require(global.moduleRoot + '/streams/read/filenames')(global.imagesSourceDirectory);
+    var filenamesReadable = settings.filenames || require(global.moduleRoot + '/streams/read/filenames')(global.imagesSourceDirectory);
 
     // Load Transform stream files
     var images = require(global.moduleRoot + '/streams/transform/images')(imageProperties);
@@ -29,10 +29,7 @@ var ImageStyles = function(settings) {
     var styledImagesWriter = require(global.moduleRoot + '/streams/write/styledImagesWriter')();
 
     var api = {
-        style:function(filenamesReadable) {
-            if(!filenamesReadable) {
-                filenamesReadable = defaultFilenamesReadable;
-            }
+        style:function() {
             filenamesReadable.pipe(images).pipe(styledImages).pipe(styledImagesWriter);
         },
         clean:function() {
