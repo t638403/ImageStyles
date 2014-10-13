@@ -247,21 +247,24 @@ var settings = {
 var imstlz = ImageStyles(settings);
 
 // Apply styles
-imstlz.style();
+imstlz.style(function(err){
+    if(err){throw err;}
+    db.close();
+});
 
 ```
 
 #API
-##ImageStyles.style()
+##ImageStyles.style(callback)
 Reads all the files in the images source directory recursively, create directories for each style in the images target 
 directory and then duplicates the structure of the images source directory under each style directory. Finaly apply style 
-functions to each image. If a file allready exists in the images target directory it will be removed.
+functions to each image. If a file already exists in the images target directory it will be removed.
 
-## ImageStyles.clean() (Not implemented)
+## ImageStyles.clean(callback) (Not implemented)
 Check target dir for inconsistencies with source dir and remove garbage and/or apply missing styled images
 
-##ImageStyles.clear()
+##ImageStyles.clear(callback)
 Remove images target directory recursively
 
-##ImageStyles.reset()
+##ImageStyles.reset(callback)
 run ImageStyles.clear() and then ImageStyles.style()
