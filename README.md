@@ -231,15 +231,15 @@ Using [mongojs](https://github.com/mafintosh/mongojs) and [JSONStream](https://g
 can easlily create stream readers for mongo. Something like this:
 
 ```javascript
-var myImageProperties = db.myImageProperties.find({}).pipe(JSONStream.stringify());
-var myStyleProperties = db.myStyleProperties.find({}).pipe(JSONStream.stringify());
+var mongojs = require('mongojs');
+var db = mongojs('ImageStyles', ['imageProperties', 'styleProperties']);
 
 // Tell ImageStyles where to find all the files and where to store the styled images
 var settings = {
     sourceDir:'/path/to/sourceFiles',
     targetDir:'/path/to/targetFiles',
-    imageProperties:myImageProperties,
-    styleProperties:myStyleProperties,
+    imageProperties:db.imageProperties.find({}),
+    styleProperties:db.styleProperties.find({}),
     styleFunctionsFile:'/path/to/styleFunctions.js'
 }
 
