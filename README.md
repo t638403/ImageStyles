@@ -227,8 +227,8 @@ var obj = {
 ```
 
 ##MongoDB Example
-Using [mongojs](https://github.com/mafintosh/mongojs) and [JSONStream](https://github.com/dominictarr/JSONStream) you 
-can easlily create stream readers for mongo. Something like this:
+Using [mongojs](https://github.com/mafintosh/mongojs) you can easlily create stream readers for mongo. Something like 
+this:
 
 ```javascript
 var mongojs = require('mongojs');
