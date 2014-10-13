@@ -21,30 +21,30 @@ var ImageStyles = function(settings) {
     var styleProperties = settings.styleProperties || require('./streams/read/styleProperties')(stylePropertiesFile);
     var filenamesReadable = settings.filenames || require(global.moduleRoot + '/streams/read/filenames')(global.imagesSourceDirectory);
 
-    // Load Transform stream files
-    var images = require(global.moduleRoot + '/streams/transform/images')(imageProperties);
-    var styledImages = require(global.moduleRoot + '/streams/transform/styledImages')(styleProperties, styleFunctions);
-
-    // Load Writable stream file
-    var styledImagesWriter = require(global.moduleRoot + '/streams/write/styledImagesWriter')();
-
     var api = {
-        style:function() {
+        style:function(done) {
+            // Load Transform stream files
+            var images = require(global.moduleRoot + '/streams/transform/images')(imageProperties);
+            var styledImages = require(global.moduleRoot + '/streams/transform/styledImages')(styleProperties, styleFunctions);
+
+            // Load Writable stream file
+            var styledImagesWriter = require(global.moduleRoot + '/streams/write/styledImagesWriter')();
+
             filenamesReadable.pipe(images).pipe(styledImages).pipe(styledImagesWriter);
+
+            styledImagesWriter.on('finish', done);
         },
-        clean:function() {
+        clean:function(done) {
             // TODO implement
             // Check target dir for inconsistencies with source dir and remove garbage and/or apply missing styles
+            done();
         },
         clear:function(done){
-            rm(global.imagesTargetDirectory, function(err) {
-                if(err) {console.log(err)}
-                if(done) {done();}
-            });
+            rm(global.imagesTargetDirectory, done);
         },
-        reset:function() {
+        reset:function(done) {
             api.clear(function(){
-                api.style();
+                api.style(done);
             });
         }
     }
